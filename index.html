@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm tra giữa kỳ I - Hóa học 11</title>
+<style>
+:root{--blue:#0b5cab;--blue2:#173f7a;--bg:#f3f7fc;--card:#fff;--line:#d7e2ef;--text:#162033;--ok:#167a3b;--bad:#b42318;--warn:#8a4b08}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eaf3ff 0,#f7faff 260px,#f7f9fc 100%);color:var(--text);font-family:"Times New Roman",serif;font-size:18px;line-height:1.45}
+.topbar{position:sticky;top:0;z-index:20;background:#0a376b;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;box-shadow:0 3px 14px #0002}.topbar b{font-family:Arial,sans-serif;letter-spacing:.3px}.timer{font:700 20px Arial,sans-serif;background:#fff;color:#b42318;padding:7px 12px;border-radius:10px;min-width:86px;text-align:center}
+.wrap{max-width:1050px;margin:24px auto 60px;padding:0 16px}.hero{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-radius:20px;padding:27px 22px;text-align:center;box-shadow:0 14px 34px #0b5cab28}.hero h1{margin:8px 0 4px;font-size:28px}.hero h2{margin:0 0 6px;font-size:21px}.hero .sub{font-size:17px;opacity:.96}
+.info,.q,.submitbox,.result,.notice{background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 5px 18px #173f7a0e}.info{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;padding:15px;margin:18px 0}.info input{width:100%;padding:11px 12px;border:1px solid #b9c9dc;border-radius:9px;font:17px inherit;background:#fff}.info input:focus{outline:2px solid #8ec0f0;border-color:var(--blue)}
+.notice{display:none;padding:12px 14px;margin:15px 0;background:#fff7e8;border-color:#efc875;color:#744400;font-family:Arial,sans-serif;font-size:14px}.section{margin-top:24px}.section-title{background:var(--blue);color:#fff;padding:11px 15px;border-radius:12px;font-size:20px;font-weight:700}.section-note{margin:7px 3px 12px;color:#536174}.q{padding:16px;margin:12px 0}.qh{font-weight:700;margin-bottom:10px}.options{display:grid;gap:7px}.option{display:flex;gap:9px;align-items:flex-start;padding:9px 11px;border:1px solid #dbe5f2;border-radius:10px;cursor:pointer;transition:.15s}.option:hover{background:#f5faff;border-color:#aac9e8}.option input{margin-top:5px}.letter{font-weight:700;min-width:24px}.tf-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:9px 11px;border:1px solid #dbe5f2;border-radius:10px;margin:7px 0}.tf-choice{white-space:nowrap;font-family:Arial,sans-serif;font-size:14px}.tf-choice label{margin-left:10px}.eq{font-family:"Times New Roman",serif;text-align:center;margin:8px 0;font-style:italic}
+.submitbox{padding:20px;text-align:center;margin-top:24px}.btn{border:0;border-radius:12px;background:linear-gradient(135deg,#0b5cab,#174c86);color:#fff;padding:14px 28px;font:700 17px Arial,sans-serif;cursor:pointer;box-shadow:0 4px 12px #0b5cab30}.btn:hover{filter:brightness(1.05)}.btn:disabled{opacity:.55;cursor:not-allowed}.hint{margin-top:10px;color:var(--warn);font:14px Arial,sans-serif}.result{display:none;margin-top:20px;padding:20px;background:#effbf3;border-color:#b9dfc5}.score{font:700 40px Arial,sans-serif;color:var(--ok);margin:4px 0 8px}.breakdown{font:16px Arial,sans-serif;color:#344256}.good{border-color:#75c58e!important;background:#f1fff5!important}.bad{border-color:#e49a94!important;background:#fff5f4!important}.mark{margin-top:7px;font:700 13px Arial,sans-serif}.mark.ok{color:var(--ok)}.mark.no{color:var(--bad)}
+.footer-note{margin-top:20px;text-align:center;color:#6a7482;font:13px Arial,sans-serif}
+@media(max-width:760px){body{font-size:17px}.info{grid-template-columns:1fr}.tf-row{grid-template-columns:1fr}.hero h1{font-size:23px}.hero h2{font-size:19px}.topbar{padding:9px 12px}.topbar b{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="topbar"><b>HÓA HỌC 11 • GIỮA KỲ I</b><div class="timer" id="timer">45:00</div></div>
+<div class="wrap">
+  <section class="hero">
+    <div><b>ĐỀ KIỂM TRA GIỮA KỲ I — NĂM HỌC 2026–2027</b></div>
+    <h1>MÔN: HÓA HỌC 11</h1>
+    <h2>BỘ SÁCH KẾT NỐI TRI THỨC VỚI CUỘC SỐNG</h2>
+    <div class="sub">Thời gian làm bài: 45 phút</div>
+  </section>
+
+  <div class="notice" id="lockedNotice">Bài thi đã được nộp và khóa trên trình duyệt này. Không có chức năng làm lại.</div>
+
+  <section class="info">
+    <input id="name" placeholder="Họ và tên thí sinh">
+    <input id="class" placeholder="Lớp">
+    <input id="sbd" placeholder="SBD">
+  </section>
+
+  <div id="app"></div>
+
+  <section class="submitbox">
+    <button id="submitBtn" class="btn">NỘP BÀI & CHẤM ĐIỂM</button>
+    <div class="hint">Sau khi nộp bài, hệ thống sẽ khóa bài thi. Không có nút Làm lại.</div>
+  </section>
+
+  <section class="result" id="resultBox">
+    <div><b>KẾT QUẢ BÀI THI</b></div>
+    <div class="score" id="scoreText"></div>
+    <div class="breakdown" id="breakdown"></div>
+  </section>
+
+  <div class="footer-note">Trang thi chạy độc lập trên GitHub Pages, không cần máy chủ riêng.</div>
+</div>
+
+<script>
+const mc = [
+  {q:'Phản ứng thuận nghịch là phản ứng hóa học có đặc điểm nào sau đây?',o:['Xảy ra đồng thời theo hai chiều ngược nhau trong cùng điều kiện xác định.','Chỉ diễn ra theo một chiều duy nhất từ chất ban đầu tạo thành sản phẩm.','Xảy ra hoàn toàn khi có mặt của chất xúc tác thích hợp ở nhiệt độ cao.','Chỉ dừng lại khi toàn bộ chất phản ứng chuyển hóa hết thành sản phẩm.'],a:'A'},
+  {q:'Ở trạng thái cân bằng hóa học của một phản ứng thuận nghịch, đặc điểm nào sau đây luôn đúng?',o:['Tốc độ của phản ứng thuận bằng với tốc độ của phản ứng nghịch.','Tốc độ của phản ứng thuận lớn hơn nhiều so với tốc độ phản ứng nghịch.','Nồng độ của các chất tham gia bằng với nồng độ các chất sản phẩm.','Phản ứng hóa học hoàn toàn dừng lại và không còn diễn ra sự chuyển dịch.'],a:'A'},
+  {q:'Cho phản ứng tổng hợp ammonia trong bình kín: N₂(g) + 3H₂(g) ⇌ 2NH₃(g). Biểu thức hằng số cân bằng nồng độ (Kc) của phản ứng trên là:',o:['Kc = [NH₃]² / ([N₂]·[H₂]³).','Kc = ([N₂]·[H₂]³) / [NH₃]².','Kc = [NH₃] / ([N₂]·[H₂]).','Kc = 2[NH₃] / ([N₂]·3[H₂]).'],a:'A'},
+  {q:'Khi cho khí NO₂ (màu nâu đỏ) vào bình kín rồi ngâm vào cốc nước đá, màu nâu đỏ nhạt dần do chuyển hóa thành N₂O₄ (không màu): 2NO₂(g) ⇌ N₂O₄(g). Kết quả này chứng tỏ phản ứng thuận là:',o:['Phản ứng tỏa nhiệt (ΔᵣH°₂₉₈ < 0).','Phản ứng thu nhiệt (ΔᵣH°₂₉₈ > 0).','Phản ứng không có sự thay đổi nhiệt lượng.','Phản ứng có tốc độ giảm về giá trị bằng 0.'],a:'A'},
+  {q:'Khi đun nóng nhẹ dung dịch sodium acetate (CH₃COONa) có nhỏ vài giọt phenolphthalein, màu hồng đậm dần: CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻. Nhận định đúng là:',o:['Phản ứng thủy phân ion CH₃COO⁻ là một quá trình thu nhiệt.','Phản ứng thủy phân ion CH₃COO⁻ là một quá trình tỏa nhiệt.','Đun nóng làm giảm nồng độ ion OH⁻ trong dung dịch.','Nhiệt độ không ảnh hưởng tới trạng thái cân bằng.'],a:'A'},
+  {q:'Chất nào sau đây thuộc loại chất điện li mạnh khi hòa tan trong nước?',o:['Hydrochloric acid (HCl).','Acetic acid (CH₃COOH).','Aqueous ammonia (NH₃).','Nước cất nguyên chất (H₂O).'],a:'A'},
+  {q:'Theo thuyết acid – base của Brønsted – Lowry, phát biểu nào sau đây chuẩn xác nhất?',o:['Acid là chất cho proton (H⁺), base là chất nhận proton (H⁺).','Acid là chất nhận proton (H⁺), base là chất cho proton (H⁺).','Acid là hợp chất phân li ra OH⁻, base là chất phân li ra H⁺.','Acid và base là các chất chỉ tồn tại ở dạng phân tử trong dung dịch.'],a:'A'},
+  {q:'Công thức toán học dùng để xác định giá trị pH của một dung dịch nước là:',o:['pH = -lg[H⁺].','pH = +lg[H⁺].','pH = -lg[OH⁻].','pH = 10^(-[H⁺]).'],a:'A'},
+  {q:'Trong thực tiễn, việc duy trì pH máu người ổn định trong khoảng 7,35–7,45 có ý nghĩa quan trọng nào sau đây?',o:['Đảm bảo cho các quá trình sinh hóa và hoạt động sống bình thường.','Làm giảm tối đa quá trình vận chuyển oxygen đến các mô cơ quan.','Ức chế hoạt động của các enzyme xúc tác chuyển hóa sinh học.','Làm tăng tính acid giúp tiêu diệt tất cả các loại vi khuẩn có lợi.'],a:'A'},
+  {q:'Trong phương pháp chuẩn độ acid – base bằng chỉ thị phenolphthalein, thời điểm kết thúc chuẩn độ thường được xác định khi:',o:['Dung dịch trong bình tam giác bắt đầu chuyển sang màu hồng nhạt bền vững.','Toàn bộ lượng nước trong bình tam giác đã bay hơi hoàn toàn.','Dung dịch trong buret chảy hết hoàn toàn xuống bình tam giác.','Xuất hiện kết tủa trắng dày đặc dưới đáy bình phản ứng.'],a:'A'},
+  {q:'Trong tự nhiên, khí nitrogen (N₂) là thành phần chính của khí quyển, chiếm khoảng bao nhiêu phần trăm thể tích không khí?',o:['Khoảng 78% thể tích không khí.','Khoảng 21% thể tích không khí.','Khoảng 50% thể tích không khí.','Khoảng 1% thể tích không khí.'],a:'A'},
+  {q:'Phân tử ammonia (NH₃) có cấu trúc hình học và liên kết hóa học đặc trưng nào sau đây?',o:['Hình chóp tam giác, nguyên tử N còn một cặp electron chưa liên kết.','Hình tứ diện đều, nguyên tử N liên kết bốn phía đối xứng.','Hình đường thẳng, nguyên tử N liên kết ba với hydrogen.','Hình tam giác phẳng, tất cả các electron hóa trị đều tham gia liên kết.'],a:'A'},
+  {q:'Trong các phản ứng oxi hóa – khử, HNO₃ thể hiện tính chất đặc trưng nổi bật nào?',o:['Tính oxi hóa rất mạnh do nguyên tử nitrogen có số oxi hóa cao nhất (+5).','Tính khử rất mạnh do phân tử dễ dàng nhường electron.','Tính base mạnh làm quỳ tím chuyển xanh.','Tính trơ hóa học ở nhiệt độ cao khi tác dụng với kim loại hoạt động.'],a:'A'},
+  {q:'Ở điều kiện thường, đơn chất sulfur tồn tại phổ biến ở trạng thái nào sau đây?',o:['Chất rắn màu vàng, tồn tại dạng đơn chất trong mỏ quặng và dạng hợp chất.','Chất khí không màu, mùi hắc, tan vô hạn trong nước.','Chất lỏng màu nâu đỏ, dễ bay hơi và độc hại.','Chất rắn màu xám đen, dẫn điện tốt và có ánh kim.'],a:'A'},
+  {q:'Khi bị bỏng sulfuric acid đặc, quy tắc sơ cứu ban đầu đúng kỹ thuật và an toàn nhất là:',o:['Rửa ngay bằng dòng nước sạch chảy nhẹ trong ít nhất 15 phút, sau đó đến cơ sở y tế.','Bôi ngay dung dịch NaOH đặc trực tiếp lên vùng da để trung hòa acid.','Rửa vùng bỏng bằng cồn 90° rồi băng kín.','Xoa dầu ăn hoặc kem đánh răng ngay mà không rửa nước.'],a:'A'},
+  {q:'Để nhận biết ion sulfate (SO₄²⁻) trong dung dịch, người ta thường dùng dung dịch thuốc thử nào sau đây để tạo kết tủa trắng?',o:['Dung dịch BaCl₂ (hoặc dung dịch chứa Ba²⁺ thích hợp).','Dung dịch AgNO₃ đậm đặc.','Dung dịch NaOH loãng.','Dung dịch phenolphthalein 1%.'],a:'A'},
+  {q:'Ở điều kiện thường, sulfur là',o:['chất rắn màu vàng.','chất khí màu vàng.','chất lỏng màu vàng.','chất rắn màu đen.'],a:'A'},
+  {q:'Phản ứng thuận nghịch là phản ứng',o:['chỉ xảy ra theo một chiều.','trong cùng điều kiện có thể xảy ra theo hai chiều ngược nhau.','luôn xảy ra hoàn toàn.','chỉ xảy ra khi có xúc tác.'],a:'B'},
+  {q:'Ở trạng thái cân bằng hóa học',o:['phản ứng thuận và phản ứng nghịch đều dừng lại.','nồng độ tất cả các chất bằng nhau.','tốc độ phản ứng thuận bằng tốc độ phản ứng nghịch.','lượng chất phản ứng bằng lượng sản phẩm.'],a:'C'},
+  {q:'Trong phân tử NH₃, nguyên tử nitrogen',o:['tạo ba liên kết N–H và còn một cặp electron chưa liên kết.','tạo bốn liên kết N–H.','không còn cặp electron tự do.','tạo hai liên kết N–H.'],a:'A'}
+];
+
+const tf = [
+  {title:'Xét sự điện li và các cân bằng trong dung dịch nước của các hợp chất vô cơ:',items:[
+    ['Dung dịch NaOH 0,01 M có pH = 12 ở 25 °C (Kᵥ = 10⁻¹⁴).','T'],
+    ['Trong phản ứng NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, phân tử H₂O đóng vai trò là một base theo Brønsted – Lowry.','F'],
+    ['Phèn chua KAl(SO₄)₂·12H₂O có tác dụng làm trong nước đục do Al³⁺ bị thủy phân tạo Al(OH)₃ dạng keo kéo theo cặn bẩn lắng xuống.','T'],
+    ['Muối Na₂CO₃ được dùng để tẩy rửa dầu mỡ và làm mềm nước cứng vì CO₃²⁻ thủy phân tạo môi trường kiềm: CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻.','T']
+  ]},
+  {title:'Xét tính chất và các quá trình hóa học liên quan đến đơn chất và hợp chất của nitrogen:',items:[
+    ['Ở nhiệt độ phòng, N₂ khá trơ do phân tử có liên kết ba N≡N rất bền với năng lượng liên kết lớn.','T'],
+    ['Quá trình sấm sét giúp O₂ phản ứng với N₂ tạo NO, sau đó tiếp tục chuyển hóa thành nitrate cung cấp chất dinh dưỡng cho cây trồng.','T'],
+    ['Để tăng hiệu suất tổng hợp NH₃ trong quá trình Haber, nên thực hiện ở áp suất cao và nhiệt độ thật cao (trên 1000 °C).','F'],
+    ['Xúc tác sắt (Fe) và phụ gia làm tăng tốc độ đạt cân bằng nhưng không làm dịch chuyển cân bằng tổng hợp ammonia.','T']
+  ]},
+  {title:'Xét các hợp chất chứa oxygen của nitrogen và sulfur liên quan đến môi trường và phản ứng hóa học:',items:[
+    ['Khí NO và NO₂ phát thải từ phương tiện giao thông và nhà máy nhiệt điện là một trong những tác nhân chính gây mưa acid.','T'],
+    ['Phú dưỡng xảy ra khi nguồn nước tích tụ quá mức các chất dinh dưỡng chứa nitrogen và phosphorus, làm rong rêu phát triển mạnh và gây thiếu oxygen cho thủy sinh.','T'],
+    ['Trong phản ứng S + O₂ → SO₂, sulfur đóng vai trò là chất oxi hóa.','F'],
+    ['Khi nhỏ H₂SO₄ đặc vào đường saccharose, đường hóa đen xốp và trào lên do tính háo nước mạnh và tính oxi hóa của acid, có thể tạo các khí CO₂ và SO₂.','T']
+  ]},
+  {title:'Nitrogen – Ammonia – Hợp chất oxygen của nitrogen',items:[
+    ['Phân tử N₂ khá trơ ở nhiệt độ thường chủ yếu do liên kết ba N≡N có năng lượng liên kết lớn.','T'],
+    ['Phân tử NH₃ có dạng tam giác phẳng.','F'],
+    ['Có thể nhận biết ion NH₄⁺ bằng cách cho dung dịch chứa ion này tác dụng với dung dịch kiềm, đun nhẹ và nhận biết khí NH₃ tạo ra.','T'],
+    ['Các oxide của nitrogen trong khí quyển có thể góp phần gây mưa acid.','T']
+  ]},
+  {title:'Sulfur – Sulfur dioxide – Sulfuric acid',items:[
+    ['Trong phản ứng S + O₂ → SO₂, sulfur đóng vai trò chất khử.','T'],
+    ['Trong phản ứng SO₂ + 2H₂S → 3S + 2H₂O, SO₂ đóng vai trò chất oxi hóa.','T'],
+    ['Copper tác dụng với sulfuric acid đặc, nóng tạo khí H₂.','F'],
+    ['Ion SO₄²⁻ có thể tạo kết tủa trắng với ion Ba²⁺.','T']
+  ]}
+];
+
+const letters = ['A','B','C','D'];
+let html = `<section class="section"><div class="section-title">PHẦN I. CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (5,0 điểm)</div><div class="section-note">Câu 1 đến Câu 20. Mỗi câu chỉ chọn một phương án đúng. Mỗi câu đúng được 0,25 điểm.</div>`;
+mc.forEach((item,i)=>{
+  html += `<div class="q" data-q="m${i}"><div class="qh">Câu ${i+1}. ${item.q}</div><div class="options">`;
+  item.o.forEach((opt,j)=>{
+    html += `<label class="option"><input type="radio" name="m${i}" value="${letters[j]}"><span class="letter">${letters[j]}.</span><span>${opt}</span></label>`;
+  });
+  html += `</div></div>`;
+});
+html += `</section><section class="section"><div class="section-title">PHẦN II. CÂU TRẮC NGHIỆM ĐÚNG / SAI (5,0 điểm)</div><div class="section-note">Mỗi câu có 4 ý a), b), c), d). Điểm mỗi câu: đúng 1 ý = 0,10; đúng 2 ý = 0,25; đúng 3 ý = 0,50; đúng 4 ý = 1,00.</div>`;
+tf.forEach((item,i)=>{
+  html += `<div class="q" data-q="t${i}"><div class="qh">Câu ${i+1}. ${item.title}</div>`;
+  item.items.forEach((it,j)=>{
+    html += `<div class="tf-row"><div><b>${'abcd'[j]})</b> ${it[0]}</div><div class="tf-choice"><label><input type="radio" name="t${i}_${j}" value="T"> Đúng</label><label><input type="radio" name="t${i}_${j}" value="F"> Sai</label></div></div>`;
+  });
+  html += `</div>`;
+});
+html += `</section>`;
+document.getElementById('app').innerHTML = html;
+
+const STORAGE_KEY = 'hoa11_gk1_2026_2027_locked_v1';
+const DURATION = 45 * 60 * 1000;
+let state = {started:Date.now(), submitted:false, score:null, answers:{}, name:'', className:'', sbd:''};
+try{ const old = JSON.parse(localStorage.getItem(STORAGE_KEY)); if(old && old.started) state = old; }catch(e){}
+if(!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function saveState(){
+  state.name = $('#name').value;
+  state.className = $('#class').value;
+  state.sbd = $('#sbd').value;
+  state.answers = {};
+  $$('input[type="radio"]:checked').forEach(el => state.answers[el.name] = el.value);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function restoreState(){
+  $('#name').value = state.name || '';
+  $('#class').value = state.className || '';
+  $('#sbd').value = state.sbd || '';
+  Object.entries(state.answers || {}).forEach(([name,val])=>{
+    const el = document.querySelector(`input[name="${name}"][value="${val}"]`);
+    if(el) el.checked = true;
+  });
+}
+function markCard(el, ok, text){
+  el.classList.add(ok?'good':'bad');
+  const p = document.createElement('div');
+  p.className = 'mark ' + (ok?'ok':'no');
+  p.textContent = text;
+  el.appendChild(p);
+}
+const tfScore = [0,0.10,0.25,0.50,1.00];
+function grade(autoSubmit=false){
+  if(state.submitted) return;
+  saveState();
+  let p1 = 0, p2 = 0;
+  mc.forEach((item,i)=>{
+    const chosen = document.querySelector(`input[name="m${i}"]:checked`)?.value || '';
+    const ok = chosen === item.a;
+    if(ok) p1 += 0.25;
+    markCard(document.querySelector(`[data-q="m${i}"]`), ok, ok ? 'Đúng' : `Chưa đúng. Đáp án: ${item.a}`);
+  });
+  tf.forEach((item,i)=>{
+    let correct = 0;
+    item.items.forEach((it,j)=>{
+      const chosen = document.querySelector(`input[name="t${i}_${j}"]:checked`)?.value || '';
+      if(chosen === it[1]) correct++;
+    });
+    const pts = tfScore[correct];
+    p2 += pts;
+    markCard(document.querySelector(`[data-q="t${i}"]`), correct===4, `Đúng ${correct}/4 ý — ${pts.toFixed(2).replace('.',',')} điểm`);
+  });
+  const total = Math.round((p1+p2)*100)/100;
+  state.submitted = true;
+  state.score = total;
+  saveState();
+  lockExam();
+  $('#resultBox').style.display = 'block';
+  $('#scoreText').textContent = total.toFixed(2).replace('.',',') + ' / 10';
+  $('#breakdown').textContent = `Phần I: ${p1.toFixed(2).replace('.',',')} / 5,00 • Phần II: ${p2.toFixed(2).replace('.',',')} / 5,00` + (autoSubmit ? ' • Hết giờ, hệ thống đã tự động nộp bài.' : '');
+  $('#resultBox').scrollIntoView({behavior:'smooth'});
+}
+function lockExam(){
+  $$('input, button').forEach(el=>el.disabled=true);
+  $('#lockedNotice').style.display = 'block';
+  $('#submitBtn').textContent = 'BÀI ĐÃ NỘP';
+  $('#timer').textContent = 'ĐÃ NỘP';
+}
+$('#submitBtn').addEventListener('click', ()=>{
+  if(!$('#name').value.trim()){ alert('Vui lòng nhập Họ và tên trước khi nộp bài.'); return; }
+  if(confirm('Bạn chắc chắn muốn nộp bài? Sau khi nộp sẽ không thể làm lại trên trình duyệt này.')) grade(false);
+});
+$$('input').forEach(el=>el.addEventListener('change',saveState));
+['name','class','sbd'].forEach(id=>$('#'+id).addEventListener('input',saveState));
+restoreState();
+if(state.submitted){
+  lockExam();
+  $('#resultBox').style.display = 'block';
+  $('#scoreText').textContent = Number(state.score||0).toFixed(2).replace('.',',') + ' / 10';
+  $('#breakdown').textContent = 'Bài thi đã được nộp trước đó và đang bị khóa trên trình duyệt này.';
+}
+function tick(){
+  if(state.submitted) return;
+  const left = Math.max(0, DURATION - (Date.now() - state.started));
+  const sec = Math.ceil(left/1000);
+  const m = Math.floor(sec/60), s = sec%60;
+  $('#timer').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  if(left<=0) grade(true);
+}
+setInterval(tick,500);
+tick();
+</script>
+</body>
+</html>
